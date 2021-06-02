@@ -19,14 +19,6 @@ public class TitleService {
         return repository.save(title);
     }
 
-    public List<Book> getAvailableBooksList(Long titleId){
-        List<Book> books = repository.findById(titleId).get().getBookList();
-
-        return books.stream()
-                .filter(book -> book.getStatus().equals("available"))
-                .collect(Collectors.toList());
-    }
-
     public List<Title> getAllTitles() {
         return repository.findAll();
     }
