@@ -45,7 +45,7 @@ public class RentalServiceTestSuite {
     private RentalRepository rentalRepository;
 
     @Test
-    public void testRentBook() throws BookNotFoundException, ReaderNotFoundException, BookRentedException {
+    public void testRentBook() throws BookNotFoundException, ReaderNotFoundException, BookRentedException, TitleNotUniqueException {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
@@ -71,7 +71,7 @@ public class RentalServiceTestSuite {
     }
 
     @Test
-    public void testReturnBook() throws BookNotFoundException, ReaderNotFoundException, RentalNotFoundException, BookRentedException {
+    public void testReturnBook() throws BookNotFoundException, ReaderNotFoundException, RentalNotFoundException, BookRentedException, TitleNotUniqueException {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);

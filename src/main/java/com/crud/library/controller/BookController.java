@@ -3,6 +3,7 @@ package com.crud.library.controller;
 import com.crud.library.domain.Book;
 import com.crud.library.dto.BookDto;
 import com.crud.library.exceptions.BookNotFoundException;
+import com.crud.library.exceptions.TitleNotFoundException;
 import com.crud.library.mapper.BookMapper;
 import com.crud.library.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class BookController {
     }
 
     @PostMapping(value = "addBook", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addBook(@RequestBody BookDto bookDto) {
+    public void addBook(@RequestBody BookDto bookDto) throws TitleNotFoundException {
         Book book = bookMapper.mapToBook(bookDto);
         bookService.saveBook(book);
     }

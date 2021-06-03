@@ -13,7 +13,7 @@ import java.util.Optional;
 @Transactional
 public interface TitleRepository extends CrudRepository<Title, Long> {
 
-    Title findByTitle(String title);
+    Optional<Title> findByTitle(String title);
 
     @Override
     List<Title> findAll();

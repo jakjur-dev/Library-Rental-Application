@@ -4,6 +4,7 @@ import com.crud.library.domain.Book;
 import com.crud.library.domain.Reader;
 import com.crud.library.domain.Title;
 import com.crud.library.exceptions.BookNotFoundException;
+import com.crud.library.exceptions.TitleNotUniqueException;
 import com.crud.library.repository.BookRepository;
 import com.crud.library.repository.TitleRepository;
 import org.apache.tomcat.jni.Local;
@@ -33,7 +34,7 @@ public class BookServiceTestSuite {
     private BookRepository bookRepository;
 
     @Test
-    public void testGetAllByStatus(){
+    public void testGetAllByStatus() throws TitleNotUniqueException {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
@@ -52,7 +53,7 @@ public class BookServiceTestSuite {
     }
 
     @Test
-    public void testSetStatus() throws BookNotFoundException {
+    public void testSetStatus() throws BookNotFoundException, TitleNotUniqueException {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);

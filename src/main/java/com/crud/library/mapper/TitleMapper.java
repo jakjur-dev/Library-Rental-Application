@@ -2,6 +2,7 @@ package com.crud.library.mapper;
 
 import com.crud.library.domain.Title;
 import com.crud.library.dto.TitleDto;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,12 +10,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class TitleMapper {
+
     public Title mapToTitle(final TitleDto titleDto) {
-        return new Title(
-                titleDto.getAuthor(),
-                titleDto.getTitle(),
-                titleDto.getPublicationYear()
-        );
+            return new Title(
+                    titleDto.getAuthor(),
+                    titleDto.getTitle(),
+                    titleDto.getPublicationYear()
+            );
     }
 
     public TitleDto mapToTitleDto(final Title title) {

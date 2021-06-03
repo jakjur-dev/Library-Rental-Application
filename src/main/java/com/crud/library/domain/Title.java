@@ -27,7 +27,7 @@ public class Title {
     private String author;
 
     @NotNull
-    @Column(name = "title")
+    @Column(name = "title", unique = true)
     private String title;
 
     @NotNull

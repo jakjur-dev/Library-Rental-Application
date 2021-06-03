@@ -2,6 +2,7 @@ package com.crud.library.controller;
 
 import com.crud.library.domain.Title;
 import com.crud.library.dto.TitleDto;
+import com.crud.library.exceptions.TitleNotUniqueException;
 import com.crud.library.mapper.TitleMapper;
 import com.crud.library.service.TitleService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class TitleController {
     private final TitleMapper titleMapper;
 
     @PostMapping(value = "addTitle", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addTitle(@RequestBody TitleDto titleDto) {
+    public void addTitle(@RequestBody TitleDto titleDto) throws TitleNotUniqueException {
         Title title = titleMapper.mapToTitle(titleDto);
         titleService.saveTitle(title);
     }
