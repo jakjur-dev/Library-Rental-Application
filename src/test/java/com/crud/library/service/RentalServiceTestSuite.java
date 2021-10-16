@@ -49,9 +49,9 @@ public class RentalServiceTestSuite {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
-        Book book = new Book(title, "available");
+        Book book = new Book(title, "available", LocalDate.now());
         bookService.saveBook(book);
-        Reader reader = new Reader("Name", "Surname", LocalDate.now());
+        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com");
         readerService.saveReader(reader);
 
         //When
@@ -75,9 +75,9 @@ public class RentalServiceTestSuite {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
-        Book book = new Book(title, "available");
+        Book book = new Book(title, "available", LocalDate.now());
         bookService.saveBook(book);
-        Reader reader = new Reader("Name", "Surname", LocalDate.now());
+        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com");
         readerService.saveReader(reader);
 
         //When
@@ -89,6 +89,32 @@ public class RentalServiceTestSuite {
         //Then
         Assertions.assertEquals(1, books.size());
         Assertions.assertEquals(0, rentals.size());
+
+        //Cleanup
+        rentalRepository.deleteById(rental.getId());
+        bookRepository.deleteById(book.getId());
+        titleRepository.deleteById(title.getId());
+        readerRepository.deleteById(reader.getId());
+    }
+
+    @Test
+    public void testRetrieveDueBooks() throws TitleNotUniqueException, ReaderNotFoundException {
+        //Given
+        Title title = new Title("Author", "Title", 1997);
+        titleService.saveTitle(title);
+        Book book = new Book(title, "available", LocalDate.now());
+        bookService.saveBook(book);
+        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com");
+        readerService.saveReader(reader);
+        Rental rental = new Rental(book, reader, LocalDate.of(2020,9,9), LocalDate.of(2021,6,9), "active");
+        rentalService.saveRental(rental);
+
+        //When
+        List<Rental> rentals = rentalService.findAllDueRentalsOfReader(reader.getId());
+
+        //Then
+        Assertions.assertEquals(1, rentals.size());
+
         //Cleanup
         rentalRepository.deleteById(rental.getId());
         bookRepository.deleteById(book.getId());

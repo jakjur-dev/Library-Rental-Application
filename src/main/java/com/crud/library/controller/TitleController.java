@@ -13,20 +13,20 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1/title")
+@RequestMapping("/v1")
 @RequiredArgsConstructor
 public class TitleController {
 
     private final TitleService titleService;
     private final TitleMapper titleMapper;
 
-    @PostMapping(value = "addTitle", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/titles", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addTitle(@RequestBody TitleDto titleDto) throws TitleNotUniqueException {
         Title title = titleMapper.mapToTitle(titleDto);
         titleService.saveTitle(title);
     }
 
-    @GetMapping(value = "getTitles")
+    @GetMapping(value = "/titles")
     public List<TitleDto> getTitles() {
         List<Title> titles = titleService.getAllTitles();
         return titleMapper.mapToTitleDtoList(titles);

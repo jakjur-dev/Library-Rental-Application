@@ -14,20 +14,20 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1/reader")
+@RequestMapping("/v1")
 @RequiredArgsConstructor
 public class ReaderController {
 
     private final ReaderService readerService;
     private final ReaderMapper readerMapper;
 
-    @PostMapping(value = "addReader", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/readers", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addReader(@RequestBody ReaderDto readerDto) {
         Reader reader = readerMapper.mapToReader(readerDto);
         readerService.saveReader(reader);
     }
 
-    @GetMapping(value = "getReaders")
+    @GetMapping(value = "/readers")
     public List<ReaderDto> getReaders() {
         List<Reader> readers = readerService.getAllReaders();
         return readerMapper.mapToReaderDtoList(readers);

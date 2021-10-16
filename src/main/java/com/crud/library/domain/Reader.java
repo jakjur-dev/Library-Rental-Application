@@ -35,22 +35,28 @@ public class Reader {
     @Column(name = "creation_date")
     private LocalDate accountCreationDate;
 
+    @NotNull
+    @Column(name = "email", unique = true)
+    private String email;
+
     @OneToMany(targetEntity = Rental.class,
             mappedBy = "reader",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private List<Rental> rentalsList = new ArrayList<>();
 
-    public Reader(@NotNull String name, @NotNull String surname, @NotNull LocalDate accountCreationDate) {
+    public Reader(@NotNull String name, @NotNull String surname, @NotNull LocalDate accountCreationDate, String email) {
         this.name = name;
         this.surname = surname;
         this.accountCreationDate = accountCreationDate;
+        this.email = email;
     }
 
-    public Reader(@NotNull Long id, @NotNull String name, @NotNull String surname, @NotNull LocalDate accountCreationDate) {
+    public Reader(@NotNull Long id, @NotNull String name, @NotNull String surname, @NotNull LocalDate accountCreationDate, String email) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.accountCreationDate = accountCreationDate;
+        this.email = email;
     }
 }

@@ -9,6 +9,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@NamedNativeQuery(
+        name = "Rental.retrieveDueRentalsOfReader",
+        query = "SELECT * FROM rentals" +
+                " WHERE DATEDIFF(NOW(), return_date) >= 1" +
+                " AND status = 'active'"+
+                " AND reader_id = :READER_ID",
+        resultClass = Rental.class
+)
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -37,19 +46,19 @@ public class Rental {
     @Column(name = "rent_date")
     private LocalDate rentDate;
 
+    @NotNull
     @Column(name = "return_date")
     private LocalDate returnDate;
 
-    public Rental(@NotNull Book book, @NotNull Reader reader, @NotNull LocalDate rentDate, LocalDate returnDate) {
+    @NotNull
+    @Column(name = "status")
+    private String status;
+
+    public Rental(@NotNull Book book, @NotNull Reader reader, @NotNull LocalDate rentDate, @NotNull LocalDate returnDate, @NotNull String status) {
         this.book = book;
         this.reader = reader;
         this.rentDate = rentDate;
         this.returnDate = returnDate;
-    }
-
-    public Rental(@NotNull Book book, @NotNull Reader reader, @NotNull LocalDate rentDate) {
-        this.book = book;
-        this.reader = reader;
-        this.rentDate = rentDate;
+        this.status = status;
     }
 }

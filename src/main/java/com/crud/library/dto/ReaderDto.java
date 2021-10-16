@@ -15,4 +15,5 @@ public class ReaderDto {
     private String name;
     private String surname;
     private LocalDate accountCreationDate;
+    private String email;
 }

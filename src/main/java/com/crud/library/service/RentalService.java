@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -36,7 +37,7 @@ public class RentalService {
         Reader reader = readerRepository.findById(readerId).orElseThrow(ReaderNotFoundException::new);
 
         if (book.getStatus().equals("available")) {
-            Rental rental = new Rental(book, reader, LocalDate.now());
+            Rental rental = new Rental(book, reader, LocalDate.now(), LocalDate.now().plus(2, ChronoUnit.WEEKS), "active");
 
             book.setStatus("rented");
             bookRepository.save(book);
@@ -52,7 +53,7 @@ public class RentalService {
         Book book = rental.getBook();
 
         book.setStatus("available");
-        rental.setReturnDate(LocalDate.now());
+        rental.setStatus("returned");
 
         bookRepository.save(book);
         return repository.save(rental);
@@ -60,7 +61,12 @@ public class RentalService {
 
     public List<Rental> findAllActiveRentalsOfReader(Long readerId) throws ReaderNotFoundException {
         Reader reader = readerRepository.findById(readerId).orElseThrow(ReaderNotFoundException::new);
-        return repository.findAllByReaderAndReturnDate(reader, null);
+        return repository.findAllByReaderAndStatus(reader, "active");
+    }
+
+    public List<Rental> findAllDueRentalsOfReader(Long readerId) throws ReaderNotFoundException {
+        readerRepository.findById(readerId).orElseThrow(ReaderNotFoundException::new);
+        return repository.retrieveDueRentalsOfReader(readerId);
     }
 
     public List<Rental> getAllRentals() {

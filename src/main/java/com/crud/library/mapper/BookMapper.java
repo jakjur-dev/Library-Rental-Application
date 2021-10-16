@@ -24,7 +24,9 @@ public class BookMapper {
         return new Book(
                 bookDto.getId(),
                 titleRepository.findByTitle(bookDto.getTitle()).orElseThrow(TitleNotFoundException::new),
-                bookDto.getStatus()
+                bookDto.getStatus(),
+                bookDto.getImage(),
+                bookDto.getReleaseDate()
         );
     }
 
@@ -32,7 +34,9 @@ public class BookMapper {
         return new BookDto(
                 book.getId(),
                 book.getTitle().getTitle(),
-                book.getStatus()
+                book.getStatus(),
+                book.getImage(),
+                book.getReleaseDate()
         );
     }
 
@@ -41,7 +45,9 @@ public class BookMapper {
                 .map(book -> new BookDto(
                         book.getId(),
                         book.getTitle().getTitle(),
-                        book.getStatus()
+                        book.getStatus(),
+                        book.getImage(),
+                        book.getReleaseDate()
                 ))
                 .collect(Collectors.toList());
     }

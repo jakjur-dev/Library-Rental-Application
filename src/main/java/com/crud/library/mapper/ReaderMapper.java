@@ -16,7 +16,8 @@ public class ReaderMapper {
         return new Reader(
                 readerDto.getName(),
                 readerDto.getSurname(),
-                LocalDate.now()
+                LocalDate.now(),
+                readerDto.getEmail()
         );
     }
 
@@ -25,7 +26,8 @@ public class ReaderMapper {
                 reader.getId(),
                 reader.getName(),
                 reader.getSurname(),
-                reader.getAccountCreationDate()
+                reader.getAccountCreationDate(),
+                reader.getEmail()
         );
     }
 
@@ -35,7 +37,8 @@ public class ReaderMapper {
                         reader.getId(),
                         reader.getName(),
                         reader.getSurname(),
-                        reader.getAccountCreationDate()
+                        reader.getAccountCreationDate(),
+                        reader.getEmail()
                 ))
                 .collect(Collectors.toList());
     }

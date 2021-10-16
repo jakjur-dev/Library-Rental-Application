@@ -15,32 +15,32 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1/rental")
+@RequestMapping("/v1")
 @RequiredArgsConstructor
 public class RentalController {
 
     private final RentalService rentalService;
     private final RentalMapper rentalMapper;
 
-    @GetMapping(value = "getRentals")
+    @GetMapping(value = "/rentals")
     public List<RentalDto> getRentals() {
         List<Rental> rentals = rentalService.getAllRentals();
         return rentalMapper.mapToRentalDtoList(rentals);
     }
 
-    @PostMapping(value = "rentBook")
-    public void rentBook(@RequestParam Long bookId, @RequestParam Long readerId) throws BookNotFoundException, ReaderNotFoundException, BookRentedException {
+    @PostMapping(value = "/rentals/{bookId}")
+    public void rentBook(@PathVariable Long bookId, @RequestParam Long readerId) throws BookNotFoundException, ReaderNotFoundException, BookRentedException {
         rentalService.rentBook(bookId, readerId);
     }
 
-    @GetMapping(value = "getUserRentals/{readerId}")
+    @GetMapping(value = "/rentals/{readerId}")
     public List<RentalDto> getUserRentals(@PathVariable Long readerId) throws ReaderNotFoundException {
         List<Rental> rentals = rentalService.findAllActiveRentalsOfReader(readerId);
         return rentalMapper.mapToRentalDtoList(rentals);
     }
 
-    @PutMapping(value = "returnBook")
-    public void returnBook(@RequestParam Long rentalId) throws RentalNotFoundException {
+    @PutMapping(value = "/rentals/{rentalId}")
+    public void returnBook(@PathVariable Long rentalId) throws RentalNotFoundException {
         rentalService.returnBook(rentalId);
     }
 }

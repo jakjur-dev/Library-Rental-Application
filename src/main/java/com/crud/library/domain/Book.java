@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -32,20 +33,33 @@ public class Book {
     @Column(name = "status")
     private String status;
 
+    @NotNull
+    @Column(name = "image")
+    private String image;
+
+    @NotNull
+    @Column(name = "release_date")
+    private LocalDate releaseDate;
+
     @OneToMany(targetEntity = Rental.class,
             mappedBy = "book",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private List<Rental> rentalList;
 
-    public Book(@NotNull Title title, @NotNull String status) {
+    public Book(@NotNull Title title, @NotNull String status, @NotNull String image, @NotNull LocalDate releaseDate) {
         this.title = title;
         this.status = status;
+        this.image = image;
+        this.releaseDate = releaseDate;
     }
 
-    public Book(@NotNull Long id, @NotNull Title title, @NotNull String status) {
+    public Book(@NotNull Long id, @NotNull Title title, @NotNull String status, @NotNull String image, @NotNull LocalDate releaseDate) {
         this.id = id;
         this.title = title;
         this.status = status;
+        this.image = image;
+        this.releaseDate = releaseDate;
     }
+
 }

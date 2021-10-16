@@ -32,7 +32,8 @@ public class RentalMapper {
                 bookRepository.findById(rentalDto.getBookId()).orElseThrow(BookNotFoundException::new),
                 readerRepository.findById(rentalDto.getReaderId()).orElseThrow(ReaderNotFoundException::new),
                 rentalDto.getRentDate(),
-                rentalDto.getReturnDate()
+                rentalDto.getReturnDate(),
+                rentalDto.getStatus()
         );
     }
 
@@ -40,9 +41,11 @@ public class RentalMapper {
         return new RentalDto(
                 rental.getId(),
                 rental.getBook().getId(),
+                rental.getBook().getTitle().getTitle(),
                 rental.getReader().getId(),
                 rental.getRentDate(),
-                rental.getReturnDate()
+                rental.getReturnDate(),
+                rental.getStatus()
         );
     }
 
@@ -51,9 +54,11 @@ public class RentalMapper {
                 .map(rental -> new RentalDto(
                         rental.getId(),
                         rental.getBook().getId(),
+                        rental.getBook().getTitle().getTitle(),
                         rental.getReader().getId(),
                         rental.getRentDate(),
-                        rental.getReturnDate()
+                        rental.getReturnDate(),
+                        rental.getStatus()
                 ))
                 .collect(Collectors.toList());
     }
