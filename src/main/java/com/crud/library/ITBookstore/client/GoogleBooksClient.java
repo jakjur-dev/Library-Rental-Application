@@ -25,15 +25,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GoogleBooksClient {
 
-    @Bean
-    public RestTemplate googleRestTemplate(RestTemplateBuilder builder){
-        return builder.build();
-    }
 
-    @Autowired
     @Qualifier("googleRestTemplate")
-    private RestTemplate googleRestTemplate;
-
+    private final RestTemplate googleRestTemplate;
     private final ApiConfig apiConfig;
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleBooksClient.class);
 

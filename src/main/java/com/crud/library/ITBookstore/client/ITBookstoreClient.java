@@ -22,14 +22,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ITBookstoreClient {
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder){
-        return builder.build();
-    }
 
-    @Autowired
-    private RestTemplate restTemplate;
-
+    private final RestTemplate restTemplate;
     private final ApiConfig apiConfig;
     private static final Logger LOGGER = LoggerFactory.getLogger(ITBookstoreClient.class);
 
