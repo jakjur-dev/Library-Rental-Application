@@ -18,7 +18,7 @@ import java.util.List;
 public class Reader {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.TABLE)
+    @GeneratedValue
     @NotNull
     @Column(name = "id", unique = true)
     private Long id;
