@@ -1,44 +1,35 @@
-package com.crud.library.mail;
+package com.crud.library.scheduler.mail;
 
-import com.crud.library.domain.Reader;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MailService {
-
-    @Autowired
-    private MailCreatorService mailCreatorService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleMailMessage.class);
 
     private final JavaMailSender javaMailSender;
 
-    public void send(final Mail mail, Reader reader) {
-        log.info("Starting email preparation...");
+    public void send(final Mail mail) {
         try {
-            javaMailSender.send(createMimeMessage(mail, reader));
-            log.info("Email has been sent.");
+            SimpleMailMessage mailMessage = createMailMessage(mail);
+            javaMailSender.send(mailMessage);
+            LOGGER.info("Email has been sent to " + mail.getMailTo());
         } catch (MailException e) {
-            log.error("Failed to process email sending: " + e.getMessage(), e);
+            LOGGER.error("Failed to process email sending: " + e.getMessage());
         }
     }
 
-    private MimeMessagePreparator createMimeMessage(final Mail mail, Reader reader) {
-        return mimeMessage -> {
-
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setTo(mail.getMailTo());
-            messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildRemainderMail(mail.getMessage(), reader), true);
-
-        };
+    private SimpleMailMessage createMailMessage(final Mail mail) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
+        return mailMessage;
     }
-
 }

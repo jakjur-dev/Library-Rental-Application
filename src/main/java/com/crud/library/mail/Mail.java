@@ -1,6 +1,5 @@
-package com.crud.library.mail;
+package com.crud.library.scheduler.mail;
 
-import com.sun.istack.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +11,4 @@ public class Mail {
     private final String mailTo;
     private final String subject;
     private final String message;
-
-    @Nullable
-    private final String toCc;
 }

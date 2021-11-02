@@ -38,7 +38,7 @@ public class BookServiceTestSuite {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
-        Book book = new Book(title, "available", LocalDate.now());
+        Book book = new Book(title, "available","image", LocalDate.now());
         bookService.saveBook(book);
 
         //When
@@ -52,32 +52,13 @@ public class BookServiceTestSuite {
         titleRepository.deleteById(title.getId());
     }
 
-    @Test
-    public void testSetStatus() throws BookNotFoundException, TitleNotUniqueException {
-        //Given
-        Title title = new Title("Author", "Title", 1997);
-        titleService.saveTitle(title);
-        Book book = new Book(title, "available", LocalDate.now());
-        bookService.saveBook(book);
-
-        //When
-        bookService.setStatus(book.getId(), "rented");
-        List<Book> books = bookService.findAllByTitleIdAndStatus(title.getId(),"rented");
-
-        //Then
-        Assertions.assertEquals(1, books.size());
-
-        //Cleanup
-        bookRepository.deleteById(book.getId());
-        titleRepository.deleteById(title.getId());
-    }
 
     @Test
     public void testGetAllKeyword() throws TitleNotUniqueException {
         //Given
         Title title = new Title("Author", "Title4", 1997);
         titleService.saveTitle(title);
-        Book book = new Book(title, "available", LocalDate.now());
+        Book book = new Book(title, "available","image", LocalDate.now());
         bookService.saveBook(book);
 
         //When

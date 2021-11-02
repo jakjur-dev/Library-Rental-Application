@@ -49,9 +49,9 @@ public class RentalServiceTestSuite {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
-        Book book = new Book(title, "available", LocalDate.now());
+        Book book = new Book(title, "available","image", LocalDate.now());
         bookService.saveBook(book);
-        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com");
+        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com","password",false);
         readerService.saveReader(reader);
 
         //When
@@ -75,9 +75,9 @@ public class RentalServiceTestSuite {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
-        Book book = new Book(title, "available", LocalDate.now());
+        Book book = new Book(title, "available","image", LocalDate.now());
         bookService.saveBook(book);
-        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com");
+        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com","password",false);
         readerService.saveReader(reader);
 
         //When
@@ -102,9 +102,9 @@ public class RentalServiceTestSuite {
         //Given
         Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
-        Book book = new Book(title, "available", LocalDate.now());
+        Book book = new Book(title, "available","image", LocalDate.now());
         bookService.saveBook(book);
-        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com");
+        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com","password",false);
         readerService.saveReader(reader);
         Rental rental = new Rental(book, reader, LocalDate.of(2020,9,9), LocalDate.of(2021,6,9), "active");
         rentalService.saveRental(rental);
