@@ -32,19 +32,6 @@ public class RentalServiceTestSuite {
     @Autowired
     private ReaderService readerService;
 
-    @Autowired
-    private TitleRepository titleRepository;
-
-    @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
-    private ReaderRepository readerRepository;
-
-    @Autowired
-    private RentalRepository rentalRepository;
-
-
     @Test
     public void testRentBook() throws BookNotFoundException, ReaderNotFoundException, BookRentedException, TitleNotUniqueException {
         //Given

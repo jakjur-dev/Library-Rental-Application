@@ -12,7 +12,7 @@ import java.util.List;
 @NamedNativeQuery(
         name = "Title.retrieveTitleByString",
         query = "SELECT * FROM titles" +
-                " WHERE SUBSTRING(title FROM 1 FOR 3) = SUBSTRING(:KEYWORD FROM 1 FOR 3)",
+                " WHERE title LIKE CONCAT('%', SUBSTRING(:KEYWORD FROM 1 FOR 3), '%')",
         resultClass = Title.class
 )
 

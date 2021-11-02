@@ -28,12 +28,6 @@ public class BookServiceTestSuite {
     @Autowired
     private TitleService titleService;
 
-    @Autowired
-    private TitleRepository titleRepository;
-
-    @Autowired
-    private BookRepository bookRepository;
-
     @Test
     public void testGetAllKeyword() throws TitleNotUniqueException {
         //Given
@@ -46,17 +40,6 @@ public class BookServiceTestSuite {
         List<Book> books = bookService.findAllByKeyword("Tit");
 
         //Then
-        try {
-            Assertions.assertEquals(1, books.size());
-        } catch (Exception e) {
-            //Cleanup
-            bookRepository.deleteById(book.getId());
-            titleRepository.deleteById(title.getId());
-        }
-
-
-        //Cleanup
-        bookRepository.deleteById(book.getId());
-        titleRepository.deleteById(title.getId());
+        Assertions.assertEquals(1, books.size());
     }
 }
