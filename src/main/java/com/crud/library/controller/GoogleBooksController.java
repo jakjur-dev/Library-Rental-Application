@@ -3,6 +3,7 @@ package com.crud.library.controller;
 import com.crud.library.dto.GoogleBookDto;
 import com.crud.library.dto.GoogleItemDto;
 import com.crud.library.dto.ITBookDto;
+import com.crud.library.facade.BookstoreFacade;
 import com.crud.library.service.GoogleBooksService;
 import com.crud.library.service.ITBookstoreService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,10 @@ import java.util.List;
 public class GoogleBooksController {
 
     @Autowired
-    private GoogleBooksService googleBooksService;
+    private BookstoreFacade bookstoreFacade;
 
     @RequestMapping(method = RequestMethod.GET, value = "/google/{keyword}")
     public List<GoogleItemDto> searchBookstore(@PathVariable String keyword, @RequestParam Long readerId) {
-        return googleBooksService.fetchBooks(keyword, readerId);
+        return bookstoreFacade.fetchGoogleBooksBooks(keyword, readerId);
     }
 }

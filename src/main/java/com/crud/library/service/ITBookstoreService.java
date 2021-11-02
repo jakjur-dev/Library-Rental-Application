@@ -13,20 +13,8 @@ import java.util.List;
 public class ITBookstoreService {
 
     private final ITBookstoreClient itBookstoreClient;
-    private final ITBookService itBookService;
 
-    public List<ITBookDto> fetchBooks(String keyword, Long readerID) {
-        List<ITBook> userItBooks = itBookService.getAllBookstoreITBooksByReader(readerID);
-        List<ITBookDto> itBooks = itBookstoreClient.getBooks(keyword);
-
-        for (ITBookDto itBook : itBooks) {
-            for (ITBook userItBook : userItBooks) {
-                if (itBook.getTitle().equals(userItBook.getTitle())) {
-                    itBook.setId(userItBook.getId());
-                }
-            }
-        }
-
-        return itBooks;
+    public List<ITBookDto> fetchBooks(String keyword) {
+        return itBookstoreClient.getBooks(keyword);
     }
 }

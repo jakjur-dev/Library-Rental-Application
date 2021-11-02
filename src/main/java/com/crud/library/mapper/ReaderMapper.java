@@ -17,7 +17,9 @@ public class ReaderMapper {
                 readerDto.getName(),
                 readerDto.getSurname(),
                 LocalDate.now(),
-                readerDto.getEmail()
+                readerDto.getEmail(),
+                readerDto.getPassword(),
+                false
         );
     }
 
@@ -27,7 +29,9 @@ public class ReaderMapper {
                 reader.getName(),
                 reader.getSurname(),
                 reader.getAccountCreationDate(),
-                reader.getEmail()
+                reader.getEmail(),
+                reader.getPassword(),
+                reader.isAdmin()
         );
     }
 
@@ -38,7 +42,9 @@ public class ReaderMapper {
                         reader.getName(),
                         reader.getSurname(),
                         reader.getAccountCreationDate(),
-                        reader.getEmail()
+                        reader.getEmail(),
+                        reader.getPassword(),
+                        reader.isAdmin()
                 ))
                 .collect(Collectors.toList());
     }

@@ -1,4 +1,4 @@
-package com.crud.library.scheduler.mail;
+package com.crud.library.mail;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

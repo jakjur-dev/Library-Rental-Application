@@ -2,6 +2,7 @@ package com.crud.library.controller;
 
 import com.crud.library.domain.Title;
 import com.crud.library.dto.TitleDto;
+import com.crud.library.exceptions.TitleNotFoundException;
 import com.crud.library.exceptions.TitleNotUniqueException;
 import com.crud.library.mapper.TitleMapper;
 import com.crud.library.service.TitleService;
@@ -21,7 +22,7 @@ public class TitleController {
     private final TitleMapper titleMapper;
 
     @PostMapping(value = "/titles", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addTitle(@RequestBody TitleDto titleDto) throws TitleNotUniqueException {
+    public void addTitle(@RequestBody TitleDto titleDto) {
         Title title = titleMapper.mapToTitle(titleDto);
         titleService.saveTitle(title);
     }
@@ -30,5 +31,10 @@ public class TitleController {
     public List<TitleDto> getTitles() {
         List<Title> titles = titleService.getAllTitles();
         return titleMapper.mapToTitleDtoList(titles);
+    }
+
+    @PutMapping(value = "/titles")
+    public void changeTitleName(@RequestBody TitleDto titleDto) {
+        titleService.saveTitle(titleMapper.mapToTitle(titleDto));
     }
 }

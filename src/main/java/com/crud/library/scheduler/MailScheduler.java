@@ -1,10 +1,11 @@
-package com.crud.library.mail;
+package com.crud.library.scheduler;
 
 import com.crud.library.domain.Reader;
 import com.crud.library.domain.Rental;
 import com.crud.library.exceptions.ReaderNotFoundException;
 import com.crud.library.repository.ReaderRepository;
-import com.crud.library.repository.RentalRepository;
+import com.crud.library.mail.Mail;
+import com.crud.library.mail.MailService;
 import com.crud.library.service.RentalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,7 +16,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class MailScheduler {
-    private static final String SUBJECT = "LibraryManager: Information about return date of your rents";
+    private static final String SUBJECT = "IT Library: Information about return date of your rentals";
 
     private final MailService mailService;
     private final ReaderRepository readerRepository;
@@ -25,7 +26,7 @@ public class MailScheduler {
     public void sendInformationAboutRentedBook() throws ReaderNotFoundException {
 
         for(Reader reader : readerRepository.findAll()) {
-            if (reader.getRentalsList().size() > 0) {
+            if (rentalService.findAllDueRentalsOfReader(reader.getId()).size() > 0) {
                 mailService.send(new Mail(
                         reader.getEmail(),
                         SUBJECT,
@@ -42,7 +43,7 @@ public class MailScheduler {
 
         StringBuilder rentalsString = new StringBuilder();
 
-        rentalsString.append("You rented ").append(rentals.size()).append(rentals.size() < 2 ? " book" : " books").append(" from the Library \n\n");
+        rentalsString.append("You have ").append(rentals.size()).append(rentals.size() < 2 ? "unreturned book" : " unreturned books").append(" from the Library \n\n");
 
         for(Rental rental : rentals) {
             rentalsString
@@ -51,8 +52,8 @@ public class MailScheduler {
                     .append(rental.getBook().getTitle().getAuthor())
                     .append(" - rent date: ")
                     .append(rental.getRentDate())
-                    .append(" - return date: ")
-                    .append(rental.getReturnDate());
+                    .append(" - return date: ").append(rental.getReturnDate())
+                    .append("\n");
         }
 
         return rentalsString.toString();

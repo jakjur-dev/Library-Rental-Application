@@ -45,7 +45,7 @@ public class Title {
             mappedBy = "title",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
-    private List<Book> bookList = new ArrayList<>();
+    private final List<Book> bookList = new ArrayList<>();
 
     public Title(@NotNull String author, @NotNull String title, @NotNull int publicationYear) {
         this.author = author;
@@ -53,10 +53,7 @@ public class Title {
         this.publicationYear = publicationYear;
     }
 
-    public Title(@NotNull Long id, @NotNull String author, @NotNull String title, @NotNull int publicationYear) {
-        this.id = id;
-        this.author = author;
+    public void setTitle(String title) {
         this.title = title;
-        this.publicationYear = publicationYear;
     }
 }

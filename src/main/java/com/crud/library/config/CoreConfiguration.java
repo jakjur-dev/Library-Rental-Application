@@ -23,7 +23,7 @@ public class CoreConfiguration {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.crud.tasks.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.crud.library.controller"))
                 .paths(PathSelectors.any())
                 .build(); }
 }

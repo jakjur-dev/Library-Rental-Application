@@ -13,6 +13,7 @@ public class TitleMapper {
 
     public Title mapToTitle(final TitleDto titleDto) {
             return new Title(
+                    titleDto.getId(),
                     titleDto.getAuthor(),
                     titleDto.getTitle(),
                     titleDto.getPublicationYear()

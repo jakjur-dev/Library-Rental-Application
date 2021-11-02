@@ -1,6 +1,7 @@
 package com.crud.library.controller;
 
 import com.crud.library.dto.ITBookDto;
+import com.crud.library.facade.BookstoreFacade;
 import com.crud.library.service.ITBookstoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,10 @@ import java.util.List;
 public class ITBookstoreController {
 
     @Autowired
-    private ITBookstoreService itBookstoreService;
+    private BookstoreFacade bookstoreFacade;
 
     @RequestMapping(method = RequestMethod.GET, value = "/bookstore/{keyword}")
     public List<ITBookDto> searchBookstore(@PathVariable String keyword, @RequestParam Long readerId) {
-        return itBookstoreService.fetchBooks(keyword, readerId);
+        return bookstoreFacade.fetchITBookstoreBooks(keyword, readerId);
     }
 }

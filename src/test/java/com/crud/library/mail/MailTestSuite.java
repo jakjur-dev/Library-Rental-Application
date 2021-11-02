@@ -1,2 +1,4 @@
-package com.crud.library.mail;public class MailTestSuite {
+package com.crud.library.mail;
+
+public class MailTestSuite {
 }

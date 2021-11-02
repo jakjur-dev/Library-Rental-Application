@@ -1,23 +1,24 @@
 package com.crud.library.service;
 
+import com.crud.library.ITBookstore.client.GoogleBooksClient;
 import com.crud.library.domain.Book;
-import com.crud.library.domain.Reader;
 import com.crud.library.domain.Title;
-import com.crud.library.exceptions.BookNotFoundException;
 import com.crud.library.exceptions.TitleNotUniqueException;
 import com.crud.library.repository.BookRepository;
 import com.crud.library.repository.TitleRepository;
-import org.apache.tomcat.jni.Local;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 
 import java.time.LocalDate;
 import java.util.List;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class BookServiceTestSuite {
 
@@ -34,29 +35,9 @@ public class BookServiceTestSuite {
     private BookRepository bookRepository;
 
     @Test
-    public void testGetAllByStatus() throws TitleNotUniqueException {
-        //Given
-        Title title = new Title("Author", "Title", 1997);
-        titleService.saveTitle(title);
-        Book book = new Book(title, "available","image", LocalDate.now());
-        bookService.saveBook(book);
-
-        //When
-        List<Book> books = bookService.findAllByTitleIdAndStatus(title.getId(),"available");
-
-        //Then
-        Assertions.assertEquals(1, books.size());
-
-        //Cleanup
-        bookRepository.deleteById(book.getId());
-        titleRepository.deleteById(title.getId());
-    }
-
-
-    @Test
     public void testGetAllKeyword() throws TitleNotUniqueException {
         //Given
-        Title title = new Title("Author", "Title4", 1997);
+        Title title = new Title("Author", "Title", 1997);
         titleService.saveTitle(title);
         Book book = new Book(title, "available","image", LocalDate.now());
         bookService.saveBook(book);
@@ -65,7 +46,14 @@ public class BookServiceTestSuite {
         List<Book> books = bookService.findAllByKeyword("Tit");
 
         //Then
-        Assertions.assertEquals(6, books.size());
+        try {
+            Assertions.assertEquals(1, books.size());
+        } catch (Exception e) {
+            //Cleanup
+            bookRepository.deleteById(book.getId());
+            titleRepository.deleteById(title.getId());
+        }
+
 
         //Cleanup
         bookRepository.deleteById(book.getId());

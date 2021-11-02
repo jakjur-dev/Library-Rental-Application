@@ -14,20 +14,8 @@ import java.util.List;
 public class GoogleBooksService {
 
     private final GoogleBooksClient googleBooksClient;
-    private final ITBookService itBookService;
 
-    public List<GoogleItemDto> fetchBooks(String keyword, Long readerId) {
-        List<ITBook> userItBooks = itBookService.getAllEbooksITBooksByReader(readerId);
-        List<GoogleItemDto> itBooks = googleBooksClient.getBooks(keyword);
-
-        for (GoogleItemDto itBook : itBooks) {
-            for (ITBook userItEBook : userItBooks) {
-                if (itBook.getBook().getTitle().equals(userItEBook.getTitle())) {
-                    itBook.getBook().setId(userItEBook.getId());
-                }
-            }
-        }
-
-        return itBooks;
+    public List<GoogleItemDto> fetchBooks(String keyword) {
+        return googleBooksClient.getBooks(keyword);
     }
 }

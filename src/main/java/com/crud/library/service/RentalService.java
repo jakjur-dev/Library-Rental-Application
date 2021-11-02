@@ -3,6 +3,7 @@ package com.crud.library.service;
 import com.crud.library.domain.Book;
 import com.crud.library.domain.Reader;
 import com.crud.library.domain.Rental;
+import com.crud.library.domain.logs.RentalLog;
 import com.crud.library.exceptions.BookNotFoundException;
 import com.crud.library.exceptions.BookRentedException;
 import com.crud.library.exceptions.ReaderNotFoundException;
@@ -10,6 +11,8 @@ import com.crud.library.exceptions.RentalNotFoundException;
 import com.crud.library.repository.BookRepository;
 import com.crud.library.repository.ReaderRepository;
 import com.crud.library.repository.RentalRepository;
+import com.crud.library.repository.logs.RentalLogRepository;
+import com.crud.library.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +25,13 @@ import java.util.List;
 public class RentalService {
 
     private final BookRepository bookRepository;
-
     private final ReaderRepository readerRepository;
-
     private final RentalRepository repository;
+    private final RentalLogRepository rentalLogRepository;
+    private final MailService mailService;
 
-    public Rental saveRental(final Rental rental){
-        return repository.save(rental);
+    public void saveRental(final Rental rental){
+        repository.save(rental);
     }
 
     public Rental rentBook(Long bookId, Long readerId) throws BookNotFoundException, ReaderNotFoundException, BookRentedException {
@@ -41,6 +44,7 @@ public class RentalService {
 
             book.setStatus("rented");
             bookRepository.save(book);
+            mailService.send(rental.getNotificationMail());
             return repository.save(rental);
         } else {
             throw new BookRentedException();
@@ -48,15 +52,16 @@ public class RentalService {
 
     }
 
-    public Rental returnBook(Long rentalId) throws RentalNotFoundException {
+    public void returnBook(Long rentalId) throws RentalNotFoundException {
         Rental rental = repository.findById(rentalId).orElseThrow(RentalNotFoundException::new);
         Book book = rental.getBook();
 
         book.setStatus("available");
         rental.setStatus("returned");
 
+        rentalLogRepository.save(new RentalLog(rental.getBook().getId(), rental.getReader().getId(), LocalDate.now()));
         bookRepository.save(book);
-        return repository.save(rental);
+        repository.save(rental);
     }
 
     public List<Rental> findAllActiveRentalsOfReader(Long readerId) throws ReaderNotFoundException {

@@ -1,5 +1,7 @@
 package com.crud.library.domain;
 
+import com.crud.library.observer.Observable;
+import com.crud.library.mail.Mail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,7 @@ import java.time.LocalDate;
 @NamedNativeQuery(
         name = "Rental.retrieveDueRentalsOfReader",
         query = "SELECT * FROM rentals" +
-                " WHERE DATEDIFF(NOW(), return_date) >= 1" +
+                " WHERE DATE_PART('day', NOW() - return_date) >= 1" +
                 " AND status = 'active'"+
                 " AND reader_id = :READER_ID",
         resultClass = Rental.class
@@ -24,7 +26,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "RENTALS")
-public class Rental {
+public class Rental implements Observable {
 
     @Id
     @GeneratedValue
@@ -61,4 +63,10 @@ public class Rental {
         this.returnDate = returnDate;
         this.status = status;
     }
+
+    @Override
+    public Mail getNotificationMail() {
+        return reader.update(this);
+    }
+
 }
