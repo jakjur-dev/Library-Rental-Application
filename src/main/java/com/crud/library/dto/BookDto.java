@@ -19,4 +19,11 @@ public class BookDto {
     private String status;
     private String image;
     private LocalDate releaseDate;
+
+    public BookDto(String title, String status, String image, LocalDate releaseDate) {
+        this.title = title;
+        this.status = status;
+        this.image = image;
+        this.releaseDate = releaseDate;
+    }
 }

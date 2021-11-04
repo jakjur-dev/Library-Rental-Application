@@ -31,12 +31,7 @@ public class TitleMapper {
 
     public List<TitleDto> mapToTitleDtoList(final List<Title> titleList) {
         return titleList.stream()
-                .map(title -> new TitleDto(
-                        title.getId(),
-                        title.getAuthor(),
-                        title.getTitle(),
-                        title.getPublicationYear()
-                ))
+                .map(this::mapToTitleDto)
                 .collect(Collectors.toList());
     }
 }

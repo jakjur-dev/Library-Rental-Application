@@ -23,14 +23,12 @@ public class TitleController {
 
     @PostMapping(value = "/titles", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addTitle(@RequestBody TitleDto titleDto) {
-        Title title = titleMapper.mapToTitle(titleDto);
-        titleService.saveTitle(title);
+        titleService.saveTitle(titleMapper.mapToTitle(titleDto));
     }
 
     @GetMapping(value = "/titles")
     public List<TitleDto> getTitles() {
-        List<Title> titles = titleService.getAllTitles();
-        return titleMapper.mapToTitleDtoList(titles);
+        return titleMapper.mapToTitleDtoList(titleService.getAllTitles());
     }
 
     @PutMapping(value = "/titles")

@@ -18,4 +18,13 @@ public class ReaderDto {
     private String email;
     private String password;
     private boolean admin;
+
+    public ReaderDto(String name, String surname, LocalDate accountCreationDate, String email, String password, boolean admin) {
+        this.name = name;
+        this.surname = surname;
+        this.accountCreationDate = accountCreationDate;
+        this.email = email;
+        this.password = password;
+        this.admin = admin;
+    }
 }

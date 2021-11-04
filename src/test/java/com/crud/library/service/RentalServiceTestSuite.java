@@ -53,7 +53,7 @@ public class RentalServiceTestSuite {
     @Test
     public void testReturnBook() throws BookNotFoundException, ReaderNotFoundException, RentalNotFoundException, BookRentedException, TitleNotUniqueException {
         //Given
-        Title title = new Title("Author2", "Title2", 1997);
+        Title title = new Title("Author", "Tilte2", 1997);
         titleService.saveTitle(title);
         Book book = new Book(title, "available","image", LocalDate.now());
         bookService.saveBook(book);
@@ -69,22 +69,4 @@ public class RentalServiceTestSuite {
         Assertions.assertEquals(0, rentals.size());
     }
 
-//    @Test
-//    public void testRetrieveDueBooks() throws TitleNotUniqueException, ReaderNotFoundException {
-//        //Given
-//        Title title = new Title("Author", "Title", 1997);
-//        titleService.saveTitle(title);
-//        Book book = new Book(title, "available","image", LocalDate.now());
-//        bookService.saveBook(book);
-//        Reader reader = new Reader("Name", "Surname", LocalDate.now(), "Jurak2012@gmail.com","password",false);
-//        readerService.saveReader(reader);
-//        Rental rental = new Rental(book, reader, LocalDate.of(2020,9,9), LocalDate.of(2021,6,9), "active");
-//        rentalService.saveRental(rental);
-//
-//        //When
-//        List<Rental> rentals = rentalService.findAllDueRentalsOfReader(reader.getId());
-//
-//        //Then
-//        Assertions.assertEquals(1, rentals.size());
-//    }
 }

@@ -26,20 +26,17 @@ public class ITBookController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/watchlist/{readerId}")
     public List<ITBookDto> getReaderWatchlist(@PathVariable Long readerId) {
-        List<ITBook> readerBooks = itBookService.getAllBookstoreITBooksByReader(readerId);
-        return itBookMapper.mapToITBookDtoList(readerBooks);
+        return itBookMapper.mapToITBookDtoList(itBookService.getAllBookstoreITBooksByReader(readerId));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/watchlist/e/{readerId}")
     public List<ITBookDto> getReaderEbooks(@PathVariable Long readerId) {
-        List<ITBook> readerBooks = itBookService.getAllEbooksITBooksByReader(readerId);
-        return itBookMapper.mapToITBookDtoList(readerBooks);
+        return itBookMapper.mapToITBookDtoList(itBookService.getAllEbooksITBooksByReader(readerId));
     }
 
     @PostMapping(value = "/watchlist/{readerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addITBook(@RequestBody ITBookDto iTBookDto, @PathVariable Long readerId) throws ReaderNotFoundException {
-        ITBook itBook = itBookMapper.mapToITBook(iTBookDto, readerId);
-        itBookService.saveITBook(itBook);
+        itBookService.saveITBook(itBookMapper.mapToITBook(iTBookDto, readerId));
     }
 
     @DeleteMapping(value = "/watchlist/{bookId}")

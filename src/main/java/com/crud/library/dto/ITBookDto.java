@@ -33,4 +33,13 @@ public class ITBookDto {
 
     @JsonProperty("url")
     private String url;
+
+    public ITBookDto(String title, String subtitle, boolean ebook, String isbn13, String image, String url) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.ebook = ebook;
+        this.isbn13 = isbn13;
+        this.image = image;
+        this.url = url;
+    }
 }

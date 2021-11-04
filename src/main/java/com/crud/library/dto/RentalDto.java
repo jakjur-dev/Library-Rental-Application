@@ -20,4 +20,12 @@ public class RentalDto {
     private LocalDate rentDate;
     private LocalDate returnDate;
     private String status;
+
+    public RentalDto(Long bookId, Long readerId, LocalDate rentDate, LocalDate returnDate, String status) {
+        this.bookId = bookId;
+        this.readerId = readerId;
+        this.rentDate = rentDate;
+        this.returnDate = returnDate;
+        this.status = status;
+    }
 }

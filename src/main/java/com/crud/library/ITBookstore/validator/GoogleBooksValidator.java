@@ -1,6 +1,7 @@
 package com.crud.library.ITBookstore.validator;
 
 import com.crud.library.domain.ITBook;
+import com.crud.library.dto.GoogleBookDto;
 import com.crud.library.dto.GoogleItemDto;
 import com.crud.library.dto.ITBookDto;
 import com.crud.library.service.ITBookService;
@@ -15,13 +16,13 @@ public class GoogleBooksValidator {
 
     private final ITBookService itBookService;
 
-    public List<GoogleItemDto> validateGoogleBooks(Long readerID, List<GoogleItemDto> itBooks){
+    public List<GoogleBookDto> validateGoogleBooks(Long readerID, List<GoogleBookDto> itBooks){
         List<ITBook> userItBooks = itBookService.getAllEbooksITBooksByReader(readerID);
 
-        for (GoogleItemDto itBook : itBooks) {
+        for (GoogleBookDto itBook : itBooks) {
             for (ITBook userItEBook : userItBooks) {
-                if (itBook.getBook().getTitle().equals(userItEBook.getTitle())) {
-                    itBook.getBook().setId(userItEBook.getId());
+                if (itBook.getTitle().equals(userItEBook.getTitle())) {
+                    itBook.setId(userItEBook.getId());
                 }
             }
         }

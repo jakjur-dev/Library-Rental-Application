@@ -18,13 +18,11 @@ public class RentalMapper {
 
     private final BookRepository bookRepository;
     private final ReaderRepository readerRepository;
-    private final TitleRepository titleRepository;
 
     @Autowired
-    public RentalMapper(BookRepository bookRepository, ReaderRepository readerRepository, TitleRepository titleRepository) {
+    public RentalMapper(BookRepository bookRepository, ReaderRepository readerRepository) {
         this.bookRepository = bookRepository;
         this.readerRepository = readerRepository;
-        this.titleRepository = titleRepository;
     }
 
     public Rental mapToRental(final RentalDto rentalDto) throws BookNotFoundException, ReaderNotFoundException {
@@ -51,15 +49,7 @@ public class RentalMapper {
 
     public List<RentalDto> mapToRentalDtoList(final List<Rental> rentalList) {
         return rentalList.stream()
-                .map(rental -> new RentalDto(
-                        rental.getId(),
-                        rental.getBook().getId(),
-                        rental.getBook().getTitle().getTitle(),
-                        rental.getReader().getId(),
-                        rental.getRentDate(),
-                        rental.getReturnDate(),
-                        rental.getStatus()
-                ))
+                .map(this::mapToRentalDto)
                 .collect(Collectors.toList());
     }
 }

@@ -24,14 +24,12 @@ public class ReaderController {
 
     @PostMapping(value = "/readers", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addReader(@RequestBody ReaderDto readerDto) {
-        Reader reader = readerMapper.mapToReader(readerDto);
-        readerService.saveReader(reader);
+        readerService.saveReader(readerMapper.mapToReader(readerDto));
     }
 
     @GetMapping(value = "/readers")
     public List<ReaderDto> getReaders() {
-        List<Reader> readers = readerService.getAllReaders();
-        return readerMapper.mapToReaderDtoList(readers);
+        return readerMapper.mapToReaderDtoList(readerService.getAllReaders());
     }
 
     @GetMapping(value = "/readers/login")

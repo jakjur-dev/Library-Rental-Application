@@ -48,15 +48,7 @@ public class ITBookMapper {
 
     public List<ITBookDto> mapToITBookDtoList(final List<ITBook> iTBookList) {
         return iTBookList.stream()
-                .map(itBook -> new ITBookDto(
-                        itBook.getId(),
-                        itBook.getTitle(),
-                        itBook.getSubtitle(),
-                        itBook.isEbook(),
-                        itBook.getIsbn13(),
-                        itBook.getImage(),
-                        itBook.getUrl()
-                ))
+                .map(this::mapToITBookDto)
                 .collect(Collectors.toList());
     }
 }

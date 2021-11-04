@@ -24,8 +24,7 @@ public class RentalController {
 
     @GetMapping(value = "/rentals")
     public List<RentalDto> getRentals() {
-        List<Rental> rentals = rentalService.getAllRentals();
-        return rentalMapper.mapToRentalDtoList(rentals);
+        return rentalMapper.mapToRentalDtoList(rentalService.getAllRentals());
     }
 
     @PostMapping(value = "/rentals/{bookId}")
@@ -35,8 +34,7 @@ public class RentalController {
 
     @GetMapping(value = "/rentals/{readerId}")
     public List<RentalDto> getUserRentals(@PathVariable Long readerId) throws ReaderNotFoundException {
-        List<Rental> rentals = rentalService.findAllActiveRentalsOfReader(readerId);
-        return rentalMapper.mapToRentalDtoList(rentals);
+        return rentalMapper.mapToRentalDtoList(rentalService.findAllActiveRentalsOfReader(readerId));
     }
 
     @PutMapping(value = "/rentals/{rentalId}")

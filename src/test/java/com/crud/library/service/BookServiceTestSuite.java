@@ -29,15 +29,15 @@ public class BookServiceTestSuite {
     private TitleService titleService;
 
     @Test
-    public void testGetAllKeyword() throws TitleNotUniqueException {
+    public void testGetAllKeyword() {
         //Given
-        Title title = new Title("Author", "Title", 1997);
+        Title title = new Title("Author", "Book", 1997);
         titleService.saveTitle(title);
         Book book = new Book(title, "available","image", LocalDate.now());
         bookService.saveBook(book);
 
         //When
-        List<Book> books = bookService.findAllByKeyword("Tit");
+        List<Book> books = bookService.findAllByKeyword("Boo");
 
         //Then
         Assertions.assertEquals(1, books.size());

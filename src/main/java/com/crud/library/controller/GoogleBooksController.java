@@ -22,7 +22,7 @@ public class GoogleBooksController {
     private BookstoreFacade bookstoreFacade;
 
     @RequestMapping(method = RequestMethod.GET, value = "/google/{keyword}")
-    public List<GoogleItemDto> searchBookstore(@PathVariable String keyword, @RequestParam Long readerId) {
+    public List<GoogleBookDto> searchGoogleBooks(@PathVariable String keyword, @RequestParam Long readerId) {
         return bookstoreFacade.fetchGoogleBooksBooks(keyword, readerId);
     }
 }

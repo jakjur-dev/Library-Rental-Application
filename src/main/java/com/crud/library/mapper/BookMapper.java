@@ -42,13 +42,7 @@ public class BookMapper {
 
     public List<BookDto> mapToBookDtoList(final List<Book> bookList) {
         return bookList.stream()
-                .map(book -> new BookDto(
-                        book.getId(),
-                        book.getTitle().getTitle(),
-                        book.getStatus(),
-                        book.getImage(),
-                        book.getReleaseDate()
-                ))
+                .map(this::mapToBookDto)
                 .collect(Collectors.toList());
     }
 }

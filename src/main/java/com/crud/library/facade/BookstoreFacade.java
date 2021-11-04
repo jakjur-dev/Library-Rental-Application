@@ -27,7 +27,7 @@ public class BookstoreFacade {
         return itBookstoreValidator.validateITBooks(readerID, itBookstoreService.fetchBooks(keyword));
     }
 
-    public List<GoogleItemDto> fetchGoogleBooksBooks(String keyword, Long readerID) {
+    public List<GoogleBookDto> fetchGoogleBooksBooks(String keyword, Long readerID) {
         return googleBooksValidator.validateGoogleBooks(readerID, googleBooksService.fetchBooks(keyword));
     }
 }
