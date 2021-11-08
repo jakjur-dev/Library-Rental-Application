@@ -9,7 +9,6 @@ import lombok.Setter;
 import org.springframework.boot.rsocket.context.LocalRSocketServerPort;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -41,5 +40,9 @@ public class ITBookDto {
         this.isbn13 = isbn13;
         this.image = image;
         this.url = url;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

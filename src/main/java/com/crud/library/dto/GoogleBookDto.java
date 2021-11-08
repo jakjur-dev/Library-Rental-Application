@@ -10,7 +10,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -32,4 +31,8 @@ public class GoogleBookDto {
 
     @JsonProperty("infoLink")
     private String infoLink;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
